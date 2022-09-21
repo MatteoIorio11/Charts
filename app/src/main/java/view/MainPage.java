@@ -55,8 +55,9 @@ public class MainPage implements Initializable{
 	
     @FXML
     public void btnSingleCoin(final ActionEvent event) throws IOException {
-        var stage = this.loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", new SingleCoin(this.controller), 100, 100);
-        stage.show();
+    	Stage stage = loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", new SingleCoin(controller), 100, 100);
+    	stage.show();
+    	
     }
     
     @FXML

@@ -17,16 +17,14 @@ import model.Coin;
 
 
 
-public class SingleCoin extends Thread implements Initializable{
+public class SingleCoin implements Initializable{
 	@FXML private ComboBox<Coin> coins;
 	@FXML private AreaChart<Integer, Double> areaChart;
 	private final static long SECONDS = 5000;
 	private final Controller controller;
 	private Coin actualCoin = null;
-	private final Window view;
 	public SingleCoin(final Controller controller) {
 		this.controller = controller;
-		this.view = this.coins.getScene().getWindow();
 
 	}
 	
@@ -44,14 +42,9 @@ public class SingleCoin extends Thread implements Initializable{
 	
 	private void displayChart(final Coin selectedCoin) {
 		this.actualCoin = selectedCoin;
-		this.run();
-	}
-	
-	@Override
-	public void run() {
+		final Window view = this.coins.getScene().getWindow();
 		final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
 
-		try {
 			while(true) {
 				this.controller.getPrice(actualCoin).stream()
 					.forEach((price) -> 
@@ -60,8 +53,7 @@ public class SingleCoin extends Thread implements Initializable{
 				
 				this.areaChart.getData().addAll(serie);
 				
-				
-				this.view.setOnCloseRequest(e -> {
+				view.setOnCloseRequest(e -> {
 					return;
 				});
 				
@@ -73,11 +65,10 @@ public class SingleCoin extends Thread implements Initializable{
 						this.controller.clear();
 					}
 		        });
-				SingleCoin.sleep(SingleCoin.SECONDS);
 			}
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}	
+
 	}
+	
+	
 }
 

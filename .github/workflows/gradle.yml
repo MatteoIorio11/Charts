@@ -35,5 +35,5 @@ jobs:
     - name: Archive test report
       uses: actions/upload-artifact@v3
       with:
-        name: Getting Build
-        path: ./build
+        name: Getting Tests
+        path: ./build/reports/tests/test

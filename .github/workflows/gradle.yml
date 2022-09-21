@@ -29,7 +29,7 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Build with Gradle
-      uses: ./gradlew build
+      run: ./gradlew build
     - name: Archive test report
       uses: actions/upload-artifact@v3
       with:

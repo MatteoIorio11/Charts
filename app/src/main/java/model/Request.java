@@ -9,14 +9,16 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Request {
-	public static void request(Coin c) {
+	public static void price(Coin c) {
 		 try {
 	            //Public API:
 	            //https://www.metaweather.com/api/location/search/?query=<CITY>
 	            //https://www.metaweather.com/api/location/44418/
 			 	QueryBuilder queryBuilder = new QueryBuilder();
 			 	queryBuilder.selectCoin(c);
-	            URL url = new URL(queryBuilder.build());
+			 	var a = queryBuilder.build();
+			 	System.out.println(a);
+	            URL url = new URL(a);
 
 	            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	            conn.setRequestMethod("GET");

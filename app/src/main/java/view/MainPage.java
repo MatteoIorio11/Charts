@@ -56,18 +56,8 @@ public class MainPage implements Initializable{
 	
     @FXML
     public void btnSingleCoin(final ActionEvent event) throws IOException {
-    	Platform.runLater(new Runnable(){
-			@Override
-			public void run() {
-		    	Stage stage;
-				try {
-					stage = loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", new SingleCoin(controller), 100, 100);
-			    	stage.show();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+    	var stage = loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", new SingleCoin(controller), 100, 100);
+		stage.show();
     }
     
     @FXML

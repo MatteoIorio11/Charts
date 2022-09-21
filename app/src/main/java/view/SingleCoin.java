@@ -34,14 +34,26 @@ public class SingleCoin implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		this.coins.getItems().addAll(Coin.values());
 		this.coins.setOnAction((e) -> {
-			Platform.runLater(new Runnable() {
+			var t = new Thread(new Runnable() {
 
 				@Override
 				public void run() {
 					displayChart(coins.getSelectionModel().getSelectedItem());
 				}
+			});
+			t.start();
+			
+			
+			/*
+			Platform.runLater(new Runnable() {
+
+				@Override
+				public void run() {
+				}
 				
 			});
+			*/
+			
        });
 	}
 	
@@ -64,7 +76,7 @@ public class SingleCoin implements Initializable{
         });
 		
 		while(!status.getStatus()) {
-			final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
+			XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
 			this.controller.getPrice(actualCoin).stream()
 				.forEach((price) -> 
 					serie.getData().add(

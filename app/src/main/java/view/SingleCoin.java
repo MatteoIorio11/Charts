@@ -27,7 +27,7 @@ public class SingleCoin extends Thread implements Initializable{
 	public SingleCoin(final Controller controller) {
 		this.controller = controller;
 		this.view = this.coins.getScene().getWindow();
-;
+
 	}
 	
 	@Override

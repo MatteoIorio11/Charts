@@ -18,6 +18,6 @@
       </AreaChart>
    </center>
    <top>
-      <ComboBox fx:id="selectCoinHandler" prefHeight="24.0" prefWidth="316.0" BorderPane.alignment="CENTER" />
+      <ComboBox id="coins" fx:id="coins" prefHeight="24.0" prefWidth="316.0" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>

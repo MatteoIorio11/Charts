@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Coin;
+import model.Status;
 
 
 
@@ -30,14 +31,17 @@ public class SingleCoin implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		var a = Stream.of(Coin.values()).collect(Collectors.toList()).size();
-		System.out.println(a);
 		this.coins.getItems().addAll(Coin.values());
 		this.coins.setOnAction((e) -> {
-			var t = new Thread(() -> {
-	            this.displayChart(this.coins.getSelectionModel().getSelectedItem());
+			
+			var t = new Thread(new Runnable(){
+
+				@Override
+				public void run() {
+					displayChart(coins.getSelectionModel().getSelectedItem());					
+				}
 			});
-			t.run();
+			t.start();
        });
 	}
 	

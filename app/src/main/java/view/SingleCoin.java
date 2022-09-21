@@ -24,18 +24,14 @@ public class SingleCoin extends Thread implements Initializable{
 	private final static long SECONDS = 5000;
 	private final Controller controller;
 	private Coin actualCoin = null;
-	private final Window view;
 	public SingleCoin(final Controller controller) {
 		this.controller = controller;
-		this.view = this.coins.getScene().getWindow();
-;
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		var a = Stream.of(Coin.values()).collect(Collectors.toList()).size();
-		System.out.println(a);
-		this.coins.getItems().addAll(Coin.values());
+		var a = Stream.of(Coin.values()).collect(Collectors.toList());
+		this.coins.getItems().addAll(a);
 		this.coins.setOnAction((e) -> {
             this.displayChart(this.coins.getSelectionModel().getSelectedItem());
        });
@@ -51,6 +47,7 @@ public class SingleCoin extends Thread implements Initializable{
 	@Override
 	public void run() {
 		final Status status = new Status();
+		final Window view = this.coins.getScene().getWindow();
 		final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
 
 		try {
@@ -59,11 +56,11 @@ public class SingleCoin extends Thread implements Initializable{
 					.forEach((price) -> 
 						serie.getData().add(
 								new XYChart.Data<Integer, Double>(price.getKey(), price.getValue())));
-				
+
 				this.areaChart.getData().addAll(serie);
+
 				
-				
-				this.view.setOnCloseRequest(e -> {
+				view.setOnCloseRequest(e -> {
 					status.changeStatus();
 				});
 				
@@ -76,6 +73,7 @@ public class SingleCoin extends Thread implements Initializable{
 					}
 		        });
 				SingleCoin.sleep(SingleCoin.SECONDS);
+				this.areaChart.getData().clear();
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();

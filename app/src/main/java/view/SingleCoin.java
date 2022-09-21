@@ -2,6 +2,8 @@ package view;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import controller.Controller;
 import javafx.fxml.FXML;
@@ -10,6 +12,7 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import model.Coin;
 
 
@@ -20,15 +23,17 @@ public class SingleCoin extends Thread implements Initializable{
 	private final static long SECONDS = 5000;
 	private final Controller controller;
 	private Coin actualCoin = null;
-	private final Stage view;
-	public SingleCoin(final Controller controller, final Stage view) {
+	private final Window view;
+	public SingleCoin(final Controller controller) {
 		this.controller = controller;
-		this.view = view;
+		this.view = this.coins.getScene().getWindow();
+;
 	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		var a = Stream.of(Coin.values()).collect(Collectors.toList()).size();
+		System.out.println(a);
 		this.coins.getItems().addAll(Coin.values());
 		this.coins.setOnAction((e) -> {
             this.displayChart(this.coins.getSelectionModel().getSelectedItem());

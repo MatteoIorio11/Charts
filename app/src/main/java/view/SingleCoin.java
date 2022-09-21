@@ -28,6 +28,7 @@ public class SingleCoin extends Thread implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		this.coins.getItems().addAll(Coin.values());
 		this.coins.setOnAction((e) -> {
             this.displayChart(this.coins.getSelectionModel().getSelectedItem());

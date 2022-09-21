@@ -31,7 +31,7 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
     - name: Archive test report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: Getting Tests
         path: build/reports/tests/test

@@ -23,4 +23,8 @@ public class Controller {
 		return List.copyOf(this.prices);
 	}
 	
+	public void clear() {
+		this.prices.clear();
+	}
+	
 }

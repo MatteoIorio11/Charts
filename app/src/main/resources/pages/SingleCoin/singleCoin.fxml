@@ -18,6 +18,6 @@
       </AreaChart>
    </center>
    <top>
-      <ChoiceBox id="coins" fx:id="selectCoinHandler" prefHeight="26.0" prefWidth="352.0" BorderPane.alignment="CENTER" />
+      <ChoiceBox id="coins" onMouseClicked="#selectCoinHandler" prefHeight="26.0" prefWidth="352.0" BorderPane.alignment="CENTER" />
    </top>
 </BorderPane>

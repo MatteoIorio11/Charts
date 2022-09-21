@@ -1,15 +1,18 @@
 package view;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import controller.Controller;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
@@ -20,9 +23,13 @@ import model.Status;
 
 
 public class SingleCoin implements Initializable{
+
+	private final static long MILLI_SECONDS = 5000;
+
+	
 	@FXML private ComboBox<Coin> coins;
-	@FXML private AreaChart<Integer, Double> areaChart;
-	private final static long SECONDS = 1;
+	@FXML private StackedAreaChart<Long, Double> areaChart;
+	private final XYChart.Series<Long, Double> serie = new XYChart.Series<>();
 	private final Controller controller;
 	private Coin actualCoin = null;
 	public SingleCoin(final Controller controller) {
@@ -33,35 +40,27 @@ public class SingleCoin implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.coins.getItems().addAll(Coin.values());
+		this.areaChart.setAnimated(false);
 		this.coins.setOnAction((e) -> {
-			var t = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					displayChart(coins.getSelectionModel().getSelectedItem());
-				}
-			});
-			t.start();
-			
-			
-			/*
-			Platform.runLater(new Runnable() {
-
-				@Override
-				public void run() {
-				}
-				
-			});
-			*/
-			
+			this.actualCoin = this.coins.getSelectionModel().getSelectedItem();
        });
+		
 	}
 	
+	@FXML
+	public void launchHandler(final ActionEvent action) {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				displayChart(actualCoin, this);
+			}
+			
+		});
+
+	}
 	
-	
-	
-	@SuppressWarnings("unchecked")
-	private void displayChart(final Coin selectedCoin) {
+	private synchronized void 	displayChart(final Coin selectedCoin, Runnable r) {
 		this.actualCoin = selectedCoin;
 		final Status status = new Status();
 		final Window view = this.coins.getScene().getWindow();
@@ -70,32 +69,35 @@ public class SingleCoin implements Initializable{
 			final Coin newCoin = this.coins.getSelectionModel().getSelectedItem();
 			if(!newCoin.equals(this.actualCoin)) {
 				actualCoin = newCoin;
-				this.areaChart.getData().clear();
 				this.controller.clear();
 			}
         });
-		
-		while(!status.getStatus()) {
-			XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
-			/*Error here */
-			this.controller.getPrice(actualCoin).stream()
-				.forEach((price) -> 
-					serie.getData().add(
-							new XYChart.Data<Integer, Double>(price.getKey(), price.getValue())));
-			System.out.println(serie.getData().size());
-			this.areaChart.getData().addAll(serie);
+		view.setOnCloseRequest(e -> {
+			status.changeStatus();
+			this.controller.clear();
+		});
+				
 
-			System.out.println("AOO");
-			view.setOnCloseRequest(e -> {
-				status.changeStatus();
-				this.controller.clear();
-			});
+		try {
+			while(!status.getStatus()) {
+				
+				this.controller.getPrice(actualCoin).stream().forEach( price -> 
+					serie.getData().add(new XYChart.Data<Long, Double>(price.getKey(), price.getValue())));
+				this.areaChart.getData().add(serie);
+				
+				r.wait(SingleCoin.MILLI_SECONDS);				
+						
+				System.out.println(this.serie.getData().size());	
+				this.areaChart.getData().remove(serie);
+
+			}
 			
-			
-			status.delay(SingleCoin.SECONDS);
-			this.areaChart.getData().clear();
-	
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
+		
 	}
 	
 	

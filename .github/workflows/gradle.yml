@@ -32,7 +32,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Package
-        path: build/libs
-        run: ls
+        path: ./
     - name: Finding files
-      run: ls
+      run: ls ./

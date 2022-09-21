@@ -19,5 +19,10 @@ public class QueryBuilder {
 		return this;
 	}
 	
+	public QueryBuilder peekRandom() {
+		/*Select a random coin*/
+		/*Add the random coin at the query */
+		return this;
+	}
 	
 }

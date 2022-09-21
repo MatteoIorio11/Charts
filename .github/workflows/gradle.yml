@@ -28,12 +28,16 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+    - name: Validate Gradle wrapper
+      uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
     - name: Build with Gradle
-      run: ./gradlew build
-    - name: Archive test report
-      uses: actions/upload-artifact@v2
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: build
+    - name: Archive files
+      uses: actions/upload-artifact@v3
       with:
         name: Getting Tests
-        path: build/reports/tests/test
+        path: build/libs
     - name: Finding files
       run: ls

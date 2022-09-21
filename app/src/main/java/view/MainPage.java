@@ -1,16 +1,16 @@
 package view;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import controller.Controller;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
-import javafx.fxml.Initializable;
-
-public class MainPage implements Initializable{
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+public class MainPage {
+	@FXML private Button singleCoint;
+	@FXML private Button twoCoints;
+	
+	private final Controller controller;
+	
+	public MainPage(final Controller controller) {
+		this.controller = controller;
 	}
-
 }

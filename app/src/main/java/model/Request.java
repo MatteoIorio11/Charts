@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class Request {
-	public static void price(Coin c) {
+	public static double price(final Coin c) {
 		 try {
 			 	QueryBuilder queryBuilder = new QueryBuilder();
 			 	queryBuilder.selectCoin(c);
@@ -44,11 +44,12 @@ public class Request {
 
 	                JSONObject countryData = (JSONObject) dataObject.get(0);
 
-	                System.out.println(countryData.get("price"));
+	                return Double.valueOf(String.valueOf(countryData.get("price")));
 
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
+	            return 0.0;
 	        }
 	}
 }

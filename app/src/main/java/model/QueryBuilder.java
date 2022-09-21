@@ -9,7 +9,7 @@ public class QueryBuilder {
 	}
 	
 	public QueryBuilder selectCoin(final Coin coin) {
-		if(this.list.isBlank()) {
+		if(this.list.equals("list=")) {
 			this.list = String.join(this.list, coin.getName());
 		}else {
 			this.list = String.join(this.list, ",");

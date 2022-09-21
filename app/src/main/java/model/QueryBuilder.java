@@ -2,7 +2,7 @@ package model;
 
 public class QueryBuilder {
 	private final static String API = "https://api.minerstat.com/v2/coins?";
-	private String list ="";
+	private String list ="list=";
 	private String qeury = "";
 	
 	public QueryBuilder() {

@@ -2,9 +2,9 @@ package view;
 
 public enum Page {
 
-	MAIN("main.fxml"),
-	SINGLE_COIN("singleCoin.fxml"),
-	TWO_COINS("twoCoins.fxml");
+	MAIN("/pages/main.fxml"),
+	SINGLE_COIN("/pages/SingleCoin/singleCoin.fxml"),
+	TWO_COINS("/pages/TwoCoins/twoCoins.fxml");
 	
 	private String name;
 	
@@ -12,7 +12,7 @@ public enum Page {
 		this.name = name;
 	}
 	
-	public String getName() {
+	public String getPath() {
 		return this.name;
 	}
 }

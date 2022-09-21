@@ -77,6 +77,7 @@ public class SingleCoin implements Initializable{
 		
 		while(!status.getStatus()) {
 			XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
+			/*Error here */
 			this.controller.getPrice(actualCoin).stream()
 				.forEach((price) -> 
 					serie.getData().add(

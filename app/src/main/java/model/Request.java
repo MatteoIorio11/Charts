@@ -11,14 +11,9 @@ import org.json.simple.parser.JSONParser;
 public class Request {
 	public static void price(Coin c) {
 		 try {
-	            //Public API:
-	            //https://www.metaweather.com/api/location/search/?query=<CITY>
-	            //https://www.metaweather.com/api/location/44418/
 			 	QueryBuilder queryBuilder = new QueryBuilder();
 			 	queryBuilder.selectCoin(c);
-			 	var a = queryBuilder.build();
-			 	System.out.println(a);
-	            URL url = new URL(a);
+	            URL url = new URL(queryBuilder.build());
 
 	            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	            conn.setRequestMethod("GET");
@@ -41,18 +36,15 @@ public class Request {
 	                //Close the scanner
 	                scanner.close();
 
-	                System.out.println(informationString);
 
 
 	                JSONParser parse = new JSONParser();
 	                JSONArray dataObject = (JSONArray) parse.parse(String.valueOf(informationString));
 
-	                //Get the first JSON object in the JSON array
-	                System.out.println(dataObject.get(0));
 
 	                JSONObject countryData = (JSONObject) dataObject.get(0);
 
-	                System.out.println(countryData.get("woeid"));
+	                System.out.println(countryData.get("price"));
 
 	            }
 	        } catch (Exception e) {

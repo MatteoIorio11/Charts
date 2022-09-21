@@ -3,7 +3,7 @@ package model;
 public enum Coin {
 	
 	BITCOIN("BTC"),
-	ETHERIUM("ETH");
+	ETHERIUM("ETC");
 	
 	private String name;
 	

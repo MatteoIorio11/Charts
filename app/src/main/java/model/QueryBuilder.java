@@ -16,10 +16,10 @@ public class QueryBuilder implements Builder {
 			throw new IllegalArgumentException("The coin must be selected");
 		}
 		if(this.list.equals("list=")) {
-			this.list = String.join(this.list, coin.getName());
+			this.list += coin.getName();
 		}else {
-			this.list = String.join(this.list, ",");
-			this.list = String.join(this.list, coin.getName());
+			this.list += ",";
+			this.list += coin.getName();
 		}
 		return this;
 	}
@@ -34,8 +34,7 @@ public class QueryBuilder implements Builder {
 	
 	@Override
 	public String build() {
-		
-		return String.join(API, list);
+		return API + list;
 	}
 	
 }

@@ -8,26 +8,12 @@ import java.net.URL;
 
 import model.Coin;
 import model.QueryBuilder;
+import model.Request;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
-
-        System.out.println(new App().getGreeting());
-        String query = new QueryBuilder().selectCoin(Coin.BITCOIN).build();
-        try {
-			URL url = new URL(query);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestProperty("accept", "application/json");
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-
+    	Request.price(Coin.BITCOIN);
+    	
     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalTime;
+
 public class Status {
 	private Boolean status = false;
 	
@@ -9,5 +11,10 @@ public class Status {
 	
 	public Boolean getStatus() {
 		return this.status;
+	}
+	
+	public void delay(final long seconds) {
+		final long now = LocalTime.now().getSecond();
+		while(LocalTime.now().getSecond() - now <= seconds) {}
 	}
 }

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import controller.Controller;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -21,7 +22,7 @@ import model.Status;
 public class SingleCoin implements Initializable{
 	@FXML private ComboBox<Coin> coins;
 	@FXML private AreaChart<Integer, Double> areaChart;
-	private final static long SECONDS = 5;
+	private final static long SECONDS = 1;
 	private final Controller controller;
 	private Coin actualCoin = null;
 	public SingleCoin(final Controller controller) {
@@ -33,15 +34,14 @@ public class SingleCoin implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		this.coins.getItems().addAll(Coin.values());
 		this.coins.setOnAction((e) -> {
-			
-			var t = new Thread(new Runnable(){
+			Platform.runLater(new Runnable() {
 
 				@Override
 				public void run() {
-					displayChart(coins.getSelectionModel().getSelectedItem());					
+					displayChart(coins.getSelectionModel().getSelectedItem());
 				}
+				
 			});
-			t.start();
        });
 	}
 	
@@ -53,29 +53,32 @@ public class SingleCoin implements Initializable{
 		this.actualCoin = selectedCoin;
 		final Status status = new Status();
 		final Window view = this.coins.getScene().getWindow();
-
+		
+		this.coins.setOnAction((e) -> {
+			final Coin newCoin = this.coins.getSelectionModel().getSelectedItem();
+			if(!newCoin.equals(this.actualCoin)) {
+				actualCoin = newCoin;
+				this.areaChart.getData().clear();
+				this.controller.clear();
+			}
+        });
+		
 		while(!status.getStatus()) {
 			final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
 			this.controller.getPrice(actualCoin).stream()
 				.forEach((price) -> 
 					serie.getData().add(
 							new XYChart.Data<Integer, Double>(price.getKey(), price.getValue())));
-
+			System.out.println(serie.getData().size());
 			this.areaChart.getData().addAll(serie);
 
 			System.out.println("AOO");
 			view.setOnCloseRequest(e -> {
 				status.changeStatus();
+				this.controller.clear();
 			});
 			
-			this.coins.setOnAction((e) -> {
-				final Coin newCoin = this.coins.getSelectionModel().getSelectedItem();
-				if(!newCoin.equals(this.actualCoin)) {
-					actualCoin = newCoin;
-					this.areaChart.getData().clear();
-					this.controller.clear();
-				}
-	        });
+			
 			status.delay(SingleCoin.SECONDS);
 			this.areaChart.getData().clear();
 	

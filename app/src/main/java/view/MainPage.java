@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import controller.Controller;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,9 +56,18 @@ public class MainPage implements Initializable{
 	
     @FXML
     public void btnSingleCoin(final ActionEvent event) throws IOException {
-    	Stage stage = loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", new SingleCoin(controller), 100, 100);
-    	stage.show();
-    	
+    	Platform.runLater(new Runnable(){
+			@Override
+			public void run() {
+		    	Stage stage;
+				try {
+					stage = loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", new SingleCoin(controller), 100, 100);
+			    	stage.show();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
     }
     
     @FXML

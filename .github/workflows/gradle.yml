@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Getting Tests
-        path: build/reports/tests/test
+        path: build/tmp/gs-gradle-0.1.0.jar

@@ -1,5 +1,6 @@
 package Charts;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -15,7 +16,7 @@ public class Launcher extends Application {
     
     @Override
     public void start(final Stage primaryStage) throws Exception {
-        final Pane pane = Loader.loadPane(Page.MAIN.getPath(), new MainPage());
+        final Pane pane = Loader.loadPane(Page.MAIN.getPath(), new MainPage(new Controller()));
         final Scene scene = new Scene(pane, 700, 500);
         primaryStage.setTitle("Coin");
         primaryStage.setScene(scene);

@@ -3,7 +3,6 @@ package model;
 public class QueryBuilder {
 	private final static String API = "https://api.minerstat.com/v2/coins?";
 	private String list ="list=";
-	private String qeury = "";
 	
 	public QueryBuilder() {
 		
@@ -21,6 +20,7 @@ public class QueryBuilder {
 	
 	public QueryBuilder peekRandom() {
 		/*Select a random coin*/
+		/*If in list != "list=" throw exception */
 		/*Add the random coin at the query */
 		return this;
 	}

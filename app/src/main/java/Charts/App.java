@@ -13,7 +13,7 @@ import model.Request;
 public class App {
 
     public static void main(String[] args) {
-    	Request.price(Coin.ETHERIUM);
+    	Request.price(Coin.BITCOIN);
     	
     }
 }

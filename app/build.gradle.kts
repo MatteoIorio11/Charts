@@ -15,8 +15,24 @@ repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
 }
+val javaFXModules = listOf(
+    "base",
+    "controls",
+    "fxml",
+    "swing",
+    "graphics",
+    "media"
+)
 
+val supportedPlatforms = listOf("linux", "mac", "win") // All required for OOP
+
+val javaFxVersion = "15.0.1"
 dependencies {
+   for (platform in supportedPlatforms) {
+        for (module in javaFXModules) {
+            implementation("org.openjfx:javafx-$module:$javaFxVersion:$platform")
+        }
+    }
     // Use JUnit test framework.
     testImplementation("junit:junit:4.13.2")
 

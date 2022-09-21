@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Coin;
+import model.Status;
 
 
 
@@ -49,10 +50,11 @@ public class SingleCoin extends Thread implements Initializable{
 	
 	@Override
 	public void run() {
+		final Status status = new Status();
 		final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
 
 		try {
-			while(true) {
+			while(!status.getStatus()) {
 				this.controller.getPrice(actualCoin).stream()
 					.forEach((price) -> 
 						serie.getData().add(
@@ -62,7 +64,7 @@ public class SingleCoin extends Thread implements Initializable{
 				
 				
 				this.view.setOnCloseRequest(e -> {
-					return;
+					status.changeStatus();
 				});
 				
 				this.coins.setOnAction((e) -> {

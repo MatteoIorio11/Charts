@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class QueryBuilder implements Builder {
 	private final static String API = "https://api.minerstat.com/v2/coins?";
 	private String list ="list=";
@@ -8,7 +10,11 @@ public class QueryBuilder implements Builder {
 		
 	}
 	
-	public QueryBuilder selectCoin(final Coin coin) {
+	@Override
+	public Builder selectCoin(final Coin coin) {
+		if(Objects.isNull(coin)) {
+			throw new IllegalArgumentException("The coin must be selected");
+		}
 		if(this.list.equals("list=")) {
 			this.list += coin.getName();
 		}else {

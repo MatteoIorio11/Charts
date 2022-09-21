@@ -55,11 +55,14 @@ public class MainPage implements Initializable{
 	
     @FXML
     public void btnSingleCoin(final ActionEvent event) throws IOException {
-        this.loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", this.controller, 100, 100);
+    	System.out.println("AAA");
+        var stage = this.loadStage(Page.SINGLE_COIN.getPath(), "SingleCoin", this.controller, 100, 100);
+        stage.show();
     }
     
     @FXML
     public void btnTwoCoins(final ActionEvent event) throws IOException {
-        this.loadStage(Page.TWO_COINS.getPath(), "TwoCoins", this.controller, 100, 100);
+        var stage = this.loadStage(Page.TWO_COINS.getPath(), "TwoCoins", this.controller, 100, 100);
+        stage.show();
     }
 }

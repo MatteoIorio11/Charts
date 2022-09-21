@@ -36,4 +36,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: Getting Build
-        path: build
+        path: ./build

@@ -1,14 +1,20 @@
 package view;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import controller.Controller;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -28,10 +34,11 @@ public class SingleCoin implements Initializable{
 
 	
 	@FXML private ComboBox<Coin> coins;
-	@FXML private StackedAreaChart<Long, Double> areaChart;
-	private final XYChart.Series<Long, Double> serie = new XYChart.Series<>();
+	@FXML private StackedAreaChart<Integer, Double> areaChart;
+	private final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
 	private final Controller controller;
 	private Coin actualCoin = null;
+	private int numberOfPoints = 0;
 	public SingleCoin(final Controller controller) {
 		this.controller = controller;
 
@@ -41,6 +48,7 @@ public class SingleCoin implements Initializable{
 	public void initialize(URL location, ResourceBundle resources) {
 		this.coins.getItems().addAll(Coin.values());
 		this.areaChart.setAnimated(false);
+		areaChart.getData().add(serie);
 		this.coins.setOnAction((e) -> {
 			this.actualCoin = this.coins.getSelectionModel().getSelectedItem();
        });
@@ -49,16 +57,19 @@ public class SingleCoin implements Initializable{
 	
 	@FXML
 	public void launchHandler(final ActionEvent action) {
-		Platform.runLater(new Runnable() {
-
-			@Override
-			public void run() {
-				displayChart(actualCoin, this);
-			}
-			
-		});
+		 ScheduledExecutorService scheduledExecutorService;
+	        scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+		 scheduledExecutorService.scheduleAtFixedRate(() -> {
+	            // Update the chart
+	            Platform.runLater(() -> {
+	                // put random number with current time
+	                serie.getData().add(new XYChart.Data<Integer,Double>(numberOfPoints++, controller.getPrice(actualCoin)));
+	            });
+	        }, 0, 1, TimeUnit.SECONDS);
+		
 
 	}
+	
 	
 	private synchronized void 	displayChart(final Coin selectedCoin, Runnable r) {
 		this.actualCoin = selectedCoin;
@@ -78,23 +89,20 @@ public class SingleCoin implements Initializable{
 		});
 				
 
-		try {
-			while(!status.getStatus()) {
-				
-				this.controller.getPrice(actualCoin).stream().forEach( price -> 
-					serie.getData().add(new XYChart.Data<Long, Double>(price.getKey(), price.getValue())));
-				this.areaChart.getData().add(serie);
-				
-				r.wait(SingleCoin.MILLI_SECONDS);				
-						
-				System.out.println(this.serie.getData().size());	
-				this.areaChart.getData().remove(serie);
-
-			}
+		while(!status.getStatus()) {
 			
-		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			this.controller.getPrice(actualCoin);
+			this.areaChart.getData().add(serie);
+			try {
+				Thread.sleep(SingleCoin.MILLI_SECONDS);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}				
+					
+			System.out.println(this.serie.getData().size());	
+			this.areaChart.getData().remove(serie);
+
 		}
 		
 		

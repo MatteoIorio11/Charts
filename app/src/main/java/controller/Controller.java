@@ -18,10 +18,9 @@ public class Controller {
 		
 	}
 	
-	public List<Map.Entry<Long, Double>> getPrice(final Coin inputCoin) {
-		var entry = new AbstractMap.SimpleEntry<Long, Double>(Instant.now().getEpochSecond() - NOW,Request.price(inputCoin));
-		this.prices.add(entry);
-		return this.prices;
+	public Double getPrice(final Coin inputCoin) {
+		
+		return Request.price(inputCoin);
 	}
 	
 	public void clear() {

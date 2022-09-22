@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -34,6 +35,7 @@ public class SingleCoin implements Initializable{
 
 	
 	@FXML private ComboBox<Coin> coins;
+	@FXML private Button launch;
 	@FXML private StackedAreaChart<Integer, Double> areaChart;
 	private final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
 	private final Controller controller;
@@ -67,6 +69,7 @@ public class SingleCoin implements Initializable{
 	            });
 	        }, 0, 1, TimeUnit.SECONDS);
 		
+		 this.launch.setVisible(false);
 
 	}
 	

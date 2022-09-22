@@ -17,9 +17,6 @@ public class QueryBuilder implements Builder {
 		}
 		if(this.list.equals("list=")) {
 			this.list += coin.getName();
-		}else {
-			this.list += ",";
-			this.list += coin.getName();
 		}
 		return this;
 	}
@@ -34,7 +31,9 @@ public class QueryBuilder implements Builder {
 	
 	@Override
 	public String build() {
-		return API + list;
+		var out =  API + list;
+		list = "list=";
+		return out;
 	}
 	
 }

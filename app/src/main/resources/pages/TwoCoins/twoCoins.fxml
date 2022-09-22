@@ -9,10 +9,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AreaChart id="areaChart" BorderPane.alignment="CENTER">
+      <AreaChart id="areaChart" fx:id="areaChart" BorderPane.alignment="CENTER">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -31,8 +30,8 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ChoiceBox id="firstCoin" prefHeight="26.0" prefWidth="293.0" />
-            <ChoiceBox id="secondCoin" prefHeight="26.0" prefWidth="295.0" GridPane.columnIndex="1" />
+            <ChoiceBox id="firstCoin" fx:id="firstCoin" prefHeight="26.0" prefWidth="293.0" />
+            <ChoiceBox id="secondCoin" fx:id="secondCoin" prefHeight="26.0" prefWidth="295.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
    </top>

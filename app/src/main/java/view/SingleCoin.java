@@ -53,7 +53,7 @@ public class SingleCoin implements Initializable{
 		areaChart.getData().add(serie);
 		this.coins.setOnAction((e) -> {
 			this.actualCoin = this.coins.getSelectionModel().getSelectedItem();
-       });
+    });
 		
 	}
 	

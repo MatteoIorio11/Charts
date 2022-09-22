@@ -19,7 +19,6 @@ public class Controller {
 	}
 	
 	public Double getPrice(final Coin inputCoin) {
-		
 		return Request.price(inputCoin);
 	}
 	

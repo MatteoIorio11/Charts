@@ -18,6 +18,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -36,8 +37,8 @@ public class SingleCoin implements Initializable{
 	
 	@FXML private ComboBox<Coin> coins;
 	@FXML private Button launch;
-	@FXML private StackedAreaChart<Integer, Double> areaChart;
-	private final XYChart.Series<Integer, Double> serie = new XYChart.Series<>();
+	@FXML private LineChart<String, Double> areaChart;
+	private final XYChart.Series<String, Double> serie = new XYChart.Series<>();
 	private final Controller controller;
 	private Coin actualCoin = null;
 	private int numberOfPoints = 0;
@@ -49,7 +50,7 @@ public class SingleCoin implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.coins.getItems().addAll(Coin.values());
-		this.areaChart.setAnimated(false);
+		this.areaChart.setAnimated(true);
 		areaChart.getData().add(serie);
 		this.coins.setOnAction((e) -> {
 			this.actualCoin = this.coins.getSelectionModel().getSelectedItem();
@@ -65,52 +66,17 @@ public class SingleCoin implements Initializable{
 	            // Update the chart
 	            Platform.runLater(() -> {
 	                // put random number with current time
-	                serie.getData().add(new XYChart.Data<Integer,Double>(numberOfPoints++, controller.getPrice(actualCoin)));
+	        		numberOfPoints++;
+	            	double coin = controller.getPrice(actualCoin);
+	            	serie.setName(actualCoin.getName());
+	            	System.out.println("COIN : " + coin);
+	                serie.getData().add(new XYChart.Data<String,Double>(String.valueOf(numberOfPoints), coin));
+	                if(serie.getData().size() % 10 == 0)
+	                	serie.getData().remove(0);
 	            });
 	        }, 0, 1, TimeUnit.SECONDS);
-		
 		 this.launch.setVisible(false);
 
 	}
-	
-	
-	private synchronized void 	displayChart(final Coin selectedCoin, Runnable r) {
-		this.actualCoin = selectedCoin;
-		final Status status = new Status();
-		final Window view = this.coins.getScene().getWindow();
-		
-		this.coins.setOnAction((e) -> {
-			final Coin newCoin = this.coins.getSelectionModel().getSelectedItem();
-			if(!newCoin.equals(this.actualCoin)) {
-				actualCoin = newCoin;
-				this.controller.clear();
-			}
-        });
-		view.setOnCloseRequest(e -> {
-			status.changeStatus();
-			this.controller.clear();
-		});
-				
-
-		while(!status.getStatus()) {
-			
-			this.controller.getPrice(actualCoin);
-			this.areaChart.getData().add(serie);
-			try {
-				Thread.sleep(SingleCoin.MILLI_SECONDS);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}				
-					
-			System.out.println(this.serie.getData().size());	
-			this.areaChart.getData().remove(serie);
-
-		}
-		
-		
-	}
-	
-	
 }
 

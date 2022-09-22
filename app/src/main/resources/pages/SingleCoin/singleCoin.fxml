@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.StackedAreaChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,17 +11,17 @@
    <top>
       <ComboBox id="coins" fx:id="coins" prefHeight="24.0" prefWidth="316.0" BorderPane.alignment="CENTER" />
    </top>
+   <left>
+      <Button id="launch" fx:id="launch" mnemonicParsing="false" onAction="#launchHandler" text="Launch" BorderPane.alignment="CENTER" />
+   </left>
    <center>
-      <StackedAreaChart id="areaChart" fx:id="areaChart" animated="false" BorderPane.alignment="CENTER">
+      <LineChart id="areaChart" fx:id="areaChart" BorderPane.alignment="CENTER">
         <xAxis>
-          <NumberAxis side="BOTTOM" />
+          <CategoryAxis side="BOTTOM" />
         </xAxis>
         <yAxis>
           <NumberAxis side="LEFT" />
         </yAxis>
-      </StackedAreaChart>
+      </LineChart>
    </center>
-   <left>
-      <Button id="launch" fx:id="launch" mnemonicParsing="false" onAction="#launchHandler" text="Launch" BorderPane.alignment="CENTER" />
-   </left>
 </BorderPane>

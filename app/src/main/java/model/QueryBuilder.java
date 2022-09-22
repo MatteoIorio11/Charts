@@ -22,14 +22,6 @@ public class QueryBuilder implements Builder {
 	}
 	
 	@Override
-	public Builder peekRandom() {
-		/*Select a random coin*/
-		/*If in list != "list=" throw exception because already one or more coin has been selected*/
-		/*Add the random coin at the query */
-		return this;
-	}
-	
-	@Override
 	public String build() {
 		var out =  API + list;
 		list = "list=";

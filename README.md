@@ -6,3 +6,18 @@ Why we have created "Charts"
  
  ----
   Technologies Used  :
+  1) Java
+  2) JavaFX
+  3) GitHub actions 
+-----
+How to use: 
+
+first of all 
+```
+cd Charts
+```
+and then 
+```
+./gradlew 
+./gradlew run
+```

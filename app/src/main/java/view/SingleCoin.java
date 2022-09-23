@@ -76,7 +76,9 @@ public class SingleCoin implements Initializable{
 	            });
 	        }, 0, 1, TimeUnit.SECONDS);
 		 this.launch.setVisible(false);
-
+	   this.launch.getScene().getWindow().setOnCloseRequest((e) -> {
+	    	scheduledExecutorService.shutdown();	
+	    });
 	}
 }
 

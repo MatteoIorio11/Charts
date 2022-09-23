@@ -65,7 +65,6 @@ public class TwoCoins implements Initializable {
     	serieSecond.setName(actualCoinSecond.getName());
     	System.out.println("FIRST COIN : "+ firstCoin + " SECOND COIN :" + secondCoin);
         serieFirst.getData().add(new XYChart.Data<String,Double>(String.valueOf(numberOfPoints), firstCoin));
-        numberOfPoints++;
         serieSecond.getData().add(new XYChart.Data<String,Double>(String.valueOf(numberOfPoints), secondCoin));
         if(serieFirst.getData().size() % 10 == 0) {
         	serieFirst.getData().remove(0);
@@ -76,5 +75,9 @@ public class TwoCoins implements Initializable {
       });
     }, 0, 1, TimeUnit.SECONDS);
     this.launch.setVisible(false);
+    this.launch.getScene().getWindow().setOnCloseRequest((e) -> {
+    	scheduledExecutorService.shutdown();	
+    });
+    
   }
 }

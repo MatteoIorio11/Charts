@@ -22,6 +22,7 @@ Nowadays with the new cryptocurrency fashion it is essential to keep an eye on t
 first of all clone the repo and go in to the directory of the project 
 
 ```
+git clone git@github.com:MatteoIorio11/Charts.git
 cd Charts
 ```
 

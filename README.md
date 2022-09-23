@@ -38,7 +38,7 @@ and then
 
 <h3> Authors </h3> 
 
-<a href="" ></a> 
-<a href="" ></a> 
-<a href="" ></a> 
-<a href="" ></a> 
+<a href="https://github.com/Schorcher5" >Joaquin Cisneros</a> 
+<a href="https://github.com/Zeddling" >Victor Zeddys</a> 
+<a href="https://github.com/fabiovincenzi" >Fabio Vincenzi</a> 
+<a href="https://github.com/MatteoIorio11/" >Matteo Iorio</a> 

@@ -39,6 +39,7 @@ dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1.1-jre")
     implementation("com.googlecode.json-simple:json-simple:1.1.1")
+    implementation("org.apache.commons:commons-math:2.2")
 }
 
 application {

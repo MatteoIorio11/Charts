@@ -1,8 +1,7 @@
 package controller;
 
 import java.time.Instant;
-import java.time.LocalTime;
-import java.util.AbstractMap;
+import model.LinearInterpolation;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +19,10 @@ public class Controller {
 	
 	public Double getPrice(final Coin inputCoin) {
 		return Request.price(inputCoin);
+	}
+	
+	public List<Double> interpolate(final double[] xs, final double[] ys, final int[] points){
+		return LinearInterpolation.interpolation(xs, ys, points);
 	}
 	
 	public void clear() {

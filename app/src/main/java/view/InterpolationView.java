@@ -58,6 +58,7 @@ public class InterpolationView implements Initializable{
 					serie.getData().add(new XYChart.Data<String, Double>(String.valueOf(i), prices.get(i)));
 				});
 			}catch(Exception e) {
+				System.out.println("ERROR : " + e.getMessage());
 				return;
 			}
 		}

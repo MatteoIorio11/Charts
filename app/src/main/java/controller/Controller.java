@@ -36,25 +36,33 @@ public class Controller {
 		int numbOfPoints = Integer.valueOf(value); 
 		int[] interpo = new int[numbOfPoints];
 		System.out.println(coin.getName());
-		for(int i = 0; i < LinearInterpolation.ACCURACY; i++) {
-			ys[i] = i;
-			if(i<= 0) {
-				xs[i] = getPrice(coin); 	
-			}else {
-				xs[i] = xs[i-1] + getPrice(coin) ;	
+		Thread t = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				for(int i = 0; i < LinearInterpolation.ACCURACY; i++) {
+					ys[i] = i;
+					if(i<= 0) {
+						xs[i] = getPrice(coin); 	
+					}else {
+						xs[i] = xs[i-1] + getPrice(coin) ;	
+					}
+					System.out.println(xs[i]);
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						System.out.println("ERROR : " + e.getMessage());
+					}
+				}
+				try {
+				points.addAll(LinearInterpolation.interpolation(xs, ys, interpo));				
+				}catch(Exception e) {
+					System.out.println("ERROR : " + e.getMessage());
+				}				
 			}
-			System.out.println(xs[i]);
-			try {
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		try {
-		points.addAll(LinearInterpolation.interpolation(xs, ys, interpo));				
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+			
+		});
+		t.start();
 	}
 	
 	public List<Coin> values(){

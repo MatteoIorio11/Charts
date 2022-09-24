@@ -69,7 +69,7 @@ public class SingleCoin implements Initializable{
 	        		numberOfPoints++;
 	            	double coin = controller.getPrice(actualCoin);
 	            	serie.setName(actualCoin.getName());
-	            	System.out.println("COIN : " + coin);
+	            	System.out.println("COIN : " + actualCoin.getName() + " -> " + coin);
 	                serie.getData().add(new XYChart.Data<String,Double>(String.valueOf(numberOfPoints), coin));
 	                if(serie.getData().size() % 10 == 0)
 	                	serie.getData().remove(0);

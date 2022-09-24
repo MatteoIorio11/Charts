@@ -22,11 +22,11 @@ public class LinearInterpolation {
 		LinearInterpolator  li = new LinearInterpolator();
 		PolynomialSplineFunction psf = li.interpolate(x, y);
 		List<Double> out = new LinkedList<>();
-		for(double start = 0; start < ACCURACY; start+=0.1) {
+		for(int start = 0; start < ACCURACY; start++) {
 			try {
 				out.add(psf.value(start));
 			} catch (Exception e) {
-				e.printStackTrace();
+				System.out.println("ERROR : " + e.getMessage());
 				return out;
 			}
 		}

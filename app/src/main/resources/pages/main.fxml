@@ -10,6 +10,7 @@
          <children>
             <Button id="singleCoin" fx:id="singleCoin" layoutX="209.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnSingleCoin" prefHeight="25.0" prefWidth="182.0" text="Single Coin" />
             <Button id="twoCoins" fx:id="twoCoins" layoutX="209.0" layoutY="220.0" mnemonicParsing="false" onAction="#btnTwoCoins" text="Comparison between two coins" />
+            <Button fx:id="prediction" layoutX="208.0" layoutY="286.0" mnemonicParsing="false" onAction="#btnPredictionHandler" prefHeight="25.0" prefWidth="183.0" text="Make Prediction" />
          </children>
       </Pane>
    </center>

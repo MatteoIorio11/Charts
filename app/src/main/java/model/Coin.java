@@ -1,20 +1,14 @@
 package model;
 
-public enum Coin {
+public class Coin {
+
+	private final String name;
 	
-	BITCOIN("BTC"),
-	ETHERIUM_COIN("ETC"),
-	DOGE_COIN("DOGE"),
-	MONERO("XMR");
-	
-	
-	private String name;
-	
-	Coin(final String name){
+	public Coin(final String name) {
 		this.name = name;
 	}
 	
-	public String getName() {
+	public String getName(){
 		return this.name;
 	}
 	

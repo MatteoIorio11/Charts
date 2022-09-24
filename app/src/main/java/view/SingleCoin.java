@@ -49,7 +49,7 @@ public class SingleCoin implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.coins.getItems().addAll(Coin.values());
+		this.coins.getItems().addAll(this.controller.values());
 		this.areaChart.setAnimated(true);
 		areaChart.getData().add(serie);
 		this.coins.setOnAction((e) -> {

@@ -4,6 +4,7 @@ public enum Page {
 
 	MAIN("/pages/main.fxml"),
 	SINGLE_COIN("/pages/SingleCoin/singleCoin.fxml"),
+	INTERPOLATION("/pages/Interpolation/interpolation.fxml"),
 	TWO_COINS("/pages/TwoCoins/twoCoins.fxml");
 	
 	private String name;

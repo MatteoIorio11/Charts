@@ -4,13 +4,17 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <Button fx:id="launch" mnemonicParsing="false" text="launch" BorderPane.alignment="CENTER" />
+      <Button fx:id="launch" mnemonicParsing="false" onAction="#launchHandler" text="launch" BorderPane.alignment="CENTER" />
    </left>
    <center>
       <LineChart fx:id="lineChart" BorderPane.alignment="CENTER">
@@ -23,6 +27,18 @@
       </LineChart>
    </center>
    <top>
-      <TextField fx:id="pointsArea" BorderPane.alignment="CENTER" />
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="pointsArea" />
+            <ComboBox fx:id="coins" prefHeight="26.0" prefWidth="287.0" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
    </top>
 </BorderPane>

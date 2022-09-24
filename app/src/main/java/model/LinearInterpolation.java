@@ -9,6 +9,9 @@ import org.apache.commons.math.analysis.interpolation.LinearInterpolator;
 import org.apache.commons.math.analysis.polynomials.PolynomialSplineFunction;
 
 public class LinearInterpolation {
+	
+	public static final int ACCURACY = 100;
+
 
 	public static List<Double>interpolation(final double[] xs, final double[]ys, int[] points) {
 		LinearInterpolator li = new LinearInterpolator();
@@ -17,6 +20,7 @@ public class LinearInterpolation {
 		for(int point : points) {
 			try {
 				out.add(psf.value(point));
+				
 			} catch (ArgumentOutsideDomainException e) {
 				e.printStackTrace();
 			}

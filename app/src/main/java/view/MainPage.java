@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.CoinExtractor;
 
 public class MainPage implements Initializable{
 	@FXML private Button singleCoin;
@@ -51,7 +52,7 @@ public class MainPage implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		
+		CoinExtractor.getCoins();
 	}
 	
     @FXML
@@ -63,6 +64,12 @@ public class MainPage implements Initializable{
     @FXML
     public void btnTwoCoins(final ActionEvent event) throws IOException {
         var stage = loadStage(Page.TWO_COINS.getPath(), "TwoCoins", new TwoCoins(controller), 100, 100);
+        stage.show();
+    }
+    
+    @FXML
+    public void btnPredictionHandler(final ActionEvent event) throws IOException {
+    	var stage = loadStage(Page.INTERPOLATION.getPath(), "Interpolation", new InterpolationView(controller), 100, 100);
         stage.show();
     }
 }

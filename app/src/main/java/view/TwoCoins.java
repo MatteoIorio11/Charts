@@ -42,8 +42,8 @@ public class TwoCoins implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     System.out.println("Initializing.........");
-    this.firstCoin.getItems().addAll(Coin.values());
-    this.secondCoin.getItems().addAll(Coin.values());
+    this.firstCoin.getItems().addAll(this.controller.values());
+    this.secondCoin.getItems().addAll(this.controller.values());
     areaChart.getData().add(serieFirst);
     areaChart.getData().add(serieSecond);
     this.firstCoin.setOnAction((e) -> this.actualCoinFirst = this.firstCoin.getSelectionModel().getSelectedItem());

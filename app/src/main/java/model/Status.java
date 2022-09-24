@@ -1,20 +1,14 @@
 package model;
 
-import java.time.LocalTime;
 
 public class Status {
-	private Boolean status = false;
+	private int cont= 0;
 	
 	public void changeStatus() {
-		this.status = !this.status;
+		this.cont++;
 	}
 	
-	public Boolean getStatus() {
-		return this.status;
-	}
-	
-	public void delay(final long seconds) {
-		final long now = LocalTime.now().getSecond();
-		while(LocalTime.now().getSecond() - now <= seconds) {}
+	public int getStatus() {
+		return this.cont;
 	}
 }

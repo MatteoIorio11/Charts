@@ -4,23 +4,28 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.math.ArgumentOutsideDomainException;
-import org.apache.commons.math.analysis.interpolation.LinearInterpolator;
+import org.apache.commons.math.analysis.interpolation.*;
 import org.apache.commons.math.analysis.polynomials.PolynomialSplineFunction;
 
 public class LinearInterpolation {
 	
-	public static final int ACCURACY = 2;
+	public static final int ACCURACY = 5;
 
 
 	public static List<Double>interpolation(final double[] xs, final double[]ys, int[] points) {
-		LinearInterpolator li = new LinearInterpolator();
-		PolynomialSplineFunction psf = li.interpolate(xs, ys);
+		double[] x = new double[xs.length-1];
+		double[]  y = new double[xs.length-1];
+		for(int i = 1 ; i < xs.length-1; i++) {
+			x[i] = xs[i];
+			y[i] = ys[i];
+		}
+		LinearInterpolator  li = new LinearInterpolator();
+		PolynomialSplineFunction psf = li.interpolate(x, y);
 		List<Double> out = new LinkedList<>();
-		for(int point : points) {
+		for(double start = 0; start < ACCURACY; start+=0.1) {
 			try {
-				out.add(psf.value(point));
-			} catch (ArgumentOutsideDomainException e) {
+				out.add(psf.value(start));
+			} catch (Exception e) {
 				e.printStackTrace();
 				return out;
 			}

@@ -69,7 +69,7 @@ public class MainPage implements Initializable{
     
     @FXML
     public void btnPredictionHandler(final ActionEvent event) throws IOException {
-    	//var stage = loadStage(Page.INTERPOLATION.getPath(), "Interpolation", new InterpolationView(controller), 100, 100);
-        //stage.show();
+    	var stage = loadStage(Page.INTERPOLATION.getPath(), "Interpolation", new InterpolationView(controller), 100, 100);
+        stage.show();
     }
 }

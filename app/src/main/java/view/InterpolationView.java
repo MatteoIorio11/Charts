@@ -1,6 +1,7 @@
 package view;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -48,9 +49,11 @@ public class InterpolationView implements Initializable{
 			}
 			String value = pointsArea.getText();
 			try {
+				serie.getData().clear();
+				serie.setName(this.actualCoin.getName());
 				int numb = Integer.valueOf(value);
-				List<Double> prices = this.controller.interpolate(actualCoin, numb);
-				System.out.println(prices.size());
+				List<Double> prices = new LinkedList<>();
+				this.controller.interpolate(prices, actualCoin, numb);
 				Stream.iterate(0,  (i) -> i + 1).limit(prices.size()).forEach((i) -> {
 					serie.getData().add(new XYChart.Data<String, Double>(String.valueOf(i), prices.get(i)));
 				});

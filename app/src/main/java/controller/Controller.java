@@ -8,11 +8,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 import model.Coin;
 import model.CoinExtractor;
 import model.Request;
+import model.Status;
 
 public class Controller {
 
@@ -26,31 +30,31 @@ public class Controller {
 		return Request.price(inputCoin);
 	}
 	
-	public List<Double> interpolate(final Coin coin, final int value){
-		try {
-		int numbOfPoints = Integer.valueOf(value);
+	public void interpolate(final List<Double> points, final Coin coin, final int value){
 		double[] xs = new double[LinearInterpolation.ACCURACY];
 		double[] ys = new double[LinearInterpolation.ACCURACY];
-		Random rnd = new Random();
-		Stream.iterate(0, (i) -> i + 1)
-			.limit(LinearInterpolation.ACCURACY)
-			.forEach((i) -> {
-				double price = this.getPrice(coin);
-				ys[i] = Double.valueOf(String.valueOf(i));
-				if(i == 0) {
-					xs[i] = price;
-				}else {
-					xs[i] =xs[i-1] + price;
-
-				}
-			});
-		
+		int numbOfPoints = Integer.valueOf(value); 
 		int[] interpo = new int[numbOfPoints];
-		return LinearInterpolation.interpolation(xs, ys, interpo);
+		System.out.println(coin.getName());
+		for(int i = 0; i < LinearInterpolation.ACCURACY; i++) {
+			ys[i] = i;
+			if(i<= 0) {
+				xs[i] = getPrice(coin); 	
+			}else {
+				xs[i] = xs[i-1] + getPrice(coin) ;	
+			}
+			System.out.println(xs[i]);
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		try {
+		points.addAll(LinearInterpolation.interpolation(xs, ys, interpo));				
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return Collections.emptyList();
 	}
 	
 	public List<Coin> values(){

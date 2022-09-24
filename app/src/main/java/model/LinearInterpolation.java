@@ -10,7 +10,7 @@ import org.apache.commons.math.analysis.polynomials.PolynomialSplineFunction;
 
 public class LinearInterpolation {
 	
-	public static final int ACCURACY = 100;
+	public static final int ACCURACY = 2;
 
 
 	public static List<Double>interpolation(final double[] xs, final double[]ys, int[] points) {
@@ -20,9 +20,9 @@ public class LinearInterpolation {
 		for(int point : points) {
 			try {
 				out.add(psf.value(point));
-				
 			} catch (ArgumentOutsideDomainException e) {
 				e.printStackTrace();
+				return out;
 			}
 		}
 		return out;

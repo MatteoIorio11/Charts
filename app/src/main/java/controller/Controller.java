@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.stream.Stream;
 
 import model.Coin;
@@ -30,13 +31,18 @@ public class Controller {
 		int numbOfPoints = Integer.valueOf(value);
 		double[] xs = new double[LinearInterpolation.ACCURACY];
 		double[] ys = new double[LinearInterpolation.ACCURACY];
-		
+		Random rnd = new Random();
 		Stream.iterate(0, (i) -> i + 1)
 			.limit(LinearInterpolation.ACCURACY)
 			.forEach((i) -> {
 				double price = this.getPrice(coin);
 				ys[i] = Double.valueOf(String.valueOf(i));
-				xs[i] = price;
+				if(i == 0) {
+					xs[i] = price;
+				}else {
+					xs[i] =xs[i-1] + price;
+
+				}
 			});
 		
 		int[] interpo = new int[numbOfPoints];

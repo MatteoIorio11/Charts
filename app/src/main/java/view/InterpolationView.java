@@ -50,6 +50,7 @@ public class InterpolationView implements Initializable{
 			try {
 				int numb = Integer.valueOf(value);
 				List<Double> prices = this.controller.interpolate(actualCoin, numb);
+				System.out.println(prices.size());
 				Stream.iterate(0,  (i) -> i + 1).limit(prices.size()).forEach((i) -> {
 					serie.getData().add(new XYChart.Data<String, Double>(String.valueOf(i), prices.get(i)));
 				});

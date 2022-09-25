@@ -54,6 +54,7 @@ public class InterpolationView implements Initializable{
 				int numb = Integer.valueOf(value);
 				List<Double> prices = new LinkedList<>();
 				this.controller.interpolate(prices, actualCoin, numb);
+				System.out.println(prices.size());
 				Stream.iterate(0,  (i) -> i + 1).limit(prices.size()).forEach((i) -> {
 					serie.getData().add(new XYChart.Data<String, Double>(String.valueOf(i), prices.get(i)));
 				});

@@ -13,14 +13,8 @@ public class LinearInterpolation {
 
 
 	public static List<Double>interpolation(final double[] xs, final double[]ys, int[] points) {
-		double[] x = new double[xs.length-1];
-		double[]  y = new double[xs.length-1];
-		for(int i = 1 ; i < xs.length-1; i++) {
-			x[i] = xs[i];
-			y[i] = ys[i];
-		}
 		LinearInterpolator  li = new LinearInterpolator();
-		PolynomialSplineFunction psf = li.interpolate(x, y);
+		PolynomialSplineFunction psf = li.interpolate(xs, ys);
 		List<Double> out = new LinkedList<>();
 		for(int start = 0; start < ACCURACY; start++) {
 			try {

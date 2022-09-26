@@ -37,12 +37,8 @@ public class Controller {
 		int[] interpo = new int[numbOfPoints];
 		System.out.println(coin.getName());
 		for(int i = 0; i < LinearInterpolation.ACCURACY; i++) {
-			ys[i] = i;
-			if(i<= 0) {
-				xs[i] = getPrice(coin); 	
-			}else {
-				xs[i] = xs[i-1] + getPrice(coin) ;	
-			}
+			xs[i] = i;
+			ys[i] = getPrice(coin); 	
 			System.out.println(xs[i]);
 			try {
 				Thread.sleep(5000);

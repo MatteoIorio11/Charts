@@ -43,3 +43,7 @@ and then
 <a href="https://github.com/Zeddling" >Victor Zeddys</a> <br />
 <a href="https://github.com/fabiovincenzi" >Fabio Vincenzi</a> <br/> 
 <a href="https://github.com/MatteoIorio11/" >Matteo Iorio</a> <br/>
+
+
+
+<a href="https://devpost.com/software/crypto-coin-chart" >DevPost</a> <br/>
